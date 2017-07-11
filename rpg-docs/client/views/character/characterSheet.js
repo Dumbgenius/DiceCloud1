@@ -206,4 +206,11 @@ Template.characterSheet.events({
 			element: event.currentTarget.parentElement.parentElement,
 		});
 	},
+	"click #characterExport": function(event, instance){
+		pushDialogStack({
+			data: this,
+			template: "exportDialog",
+			element: event.currentTarget.parentElement.parentElement,
+		});
+	},
 });
