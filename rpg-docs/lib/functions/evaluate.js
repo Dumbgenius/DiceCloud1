@@ -90,6 +90,15 @@ evaluateSpellString = function (charId, spellListId, string) {
 	return result;
 }
 
+evaluateSigned = function(charId, string) {
+	var number = evaluate(charId, string);
+	if (_.isFinite(number)) {
+		return number > 0 ? "+" + number : "" + number;
+	} else {
+		return number;
+	}
+};
+
 //returns the value of the effect if it exists,
 //otherwise returns the result of the calculation if it exists,
 //otherwise returns 0

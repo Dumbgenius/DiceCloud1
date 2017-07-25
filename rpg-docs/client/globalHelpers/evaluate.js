@@ -3,12 +3,7 @@ Template.registerHelper("evaluate", function(charId, string) {
 });
 
 Template.registerHelper("evaluateSigned", function(charId, string) {
-	var number = evaluate(charId, string);
-	if (_.isFinite(number)) {
-		return number > 0 ? "+" + number : "" + number;
-	} else {
-		return number;
-	}
+	return evaluateSigned(charId, string);
 });
 
 Template.registerHelper("evaluateSignedSpaced", function(charId, string) {

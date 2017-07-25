@@ -1,4 +1,4 @@
-Template.registerHelper("valueString", function(value) {
+valueString = function(value) {
 	var intValue = Math.round(value * 100);
 	var cp = intValue % 10;
 	intValue -= cp;
@@ -29,9 +29,9 @@ Template.registerHelper("valueString", function(value) {
 		result += resultArray[i];
 	}
 	return result;
-});
+}
 
-Template.registerHelper("longValueString", function(value) {
+longValueString = function(value) {
 	var resultArray = [];
 	//sp
 	var gp = Math.floor(value);
@@ -60,4 +60,7 @@ Template.registerHelper("longValueString", function(value) {
 		result += resultArray[i];
 	}
 	return result;
-});
+}
+
+Template.registerHelper("valueString", valueString);
+Template.registerHelper("longValueString", longValueString);
