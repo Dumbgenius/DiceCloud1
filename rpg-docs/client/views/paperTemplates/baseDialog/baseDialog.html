@@ -20,6 +20,11 @@
 								   icon="done">
 				</paper-icon-button>
 			{{else}}
+				{{#unless hideExport}}
+					<paper-icon-button id="exportToCardButton"
+									   icon="description">
+					</paper-icon-button>
+				{{/unless}}
 				{{#if showEdit}}
 					<paper-icon-button id="editButton"
 									   icon="create">

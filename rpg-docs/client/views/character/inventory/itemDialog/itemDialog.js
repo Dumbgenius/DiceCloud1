@@ -41,6 +41,9 @@ Template.itemDialog.events({
 		GlobalUI.deletedToast(instance.data.itemId, "Items", "Item");
 		popDialogStack();
 	},
+	"tap #exportToCardButton": function(event, instance){
+		console.log(exportItemRpgCard(instance.data.itemId, instance.data.charId));
+	},
 });
 
 Template.itemEdit.helpers({

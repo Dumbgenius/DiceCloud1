@@ -13,6 +13,9 @@ Template.featureDialog.events({
 		GlobalUI.deletedToast(instance.data.featureId, "Features", "Feature");
 		popDialogStack();
 	},
+	"tap #exportToCardButton": function(event, instance){
+		console.log(exportFeatureRpgCard(instance.data.featureId, instance.data.charId));
+	},
 });
 
 Template.featureDetails.helpers({

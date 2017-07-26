@@ -26,6 +26,9 @@ Template.spellDialog.events({
 		GlobalUI.deletedToast(instance.data.spellId, "Spells", "Spell");
 		popDialogStack();
 	},
+	"tap #exportToCardButton": function(event, instance){
+		console.log(exportSpellRpgCard(instance.data.spellId, instance.data.charId));
+	},
 });
 
 Template.spellDetails.helpers({
