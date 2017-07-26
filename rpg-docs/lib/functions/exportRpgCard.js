@@ -166,14 +166,8 @@ var ordinal = function(number) {
 	return string + "th"
 }
 
-var splitByLines = function(string) {
-	arr = string.split("\n");
-	output = [];
-	_.forEach(arr, function(element){
-		if (!element) return;
-		output.push("text | " + element)
-	});
-	return output;
+var prepareForCard = function(string) {
+	return string.replace(/\n/g, "");
 }
 
 var materialNeedsGp = function(string) {
@@ -240,7 +234,7 @@ var statValue = function(effect){
 	var value = evaluateEffect(effect.charId, effect);
 	if (_.isNumber(value)) return value;
 	return effect.calculation || effect.value;
-},
+}
 
 //ACTUAL EXPORTING FUNCTIONS ------------------------------------------------------------------------------------------------------------------------------------------------------
 exportFeatureRpgCard = function(featureId, charId) {
@@ -292,11 +286,9 @@ exportFeatureRpgCard = function(featureId, charId) {
 	card.contents.push("rule");
 
 	if (feature.description) {
-		//var converter = new Showdown.converter(); //this is the Markdown converter used by Meteor/Blaze itself.
-		// ^^^ THIS DOESN'T WORK AND I DON'T KNOW WHY NOT ^^^ //TODO: FIX THIS
 		card.contents.push("fill");
-		//card.contents.push("text | " + converter.makeHtml(feature.description));
-		card.contents = card.contents.concat( splitByLines(feature.description) ); //for now just output the raw Markdown.
+		var markedDownDescription = marked(feature.description);
+		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
 		card.contents.push("fill");
 	}
 
@@ -353,11 +345,9 @@ exportItemRpgCard = function(itemId, charId) {
 	card.contents.push("rule");
 
 	if (item.description) {
-		//var converter = new Showdown.converter(); //this is the Markdown converter used by Meteor/Blaze itself.
-		// ^^^ THIS DOESN'T WORK AND I DON'T KNOW WHY NOT ^^^ //TODO: FIX THIS
 		card.contents.push("fill");
-		//card.contents.push("text | " + converter.makeHtml(item.description));
-		card.contents = card.contents.concat( splitByLines(item.description) ); //for now just output the raw Markdown.
+		var markedDownDescription = marked(item.description);
+		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
 		card.contents.push("fill");
 	}
 
@@ -428,11 +418,9 @@ exportSpellRpgCard = function(spellId, charId) {
 			description = spell.description;
 		}
 
-		//var converter = new Showdown.converter(); //this is the Markdown converter used by Meteor/Blaze itself.
-		// ^^^ THIS DOESN'T WORK AND I DON'T KNOW WHY NOT ^^^ //TODO: FIX THIS
 		card.contents.push("fill");
-		//card.contents.push("text | " + converter.makeHtml(description));
-		card.contents = card.contents.concat( splitByLines(description) ); //for now just output the raw Markdown.
+		var markedDownDescription = marked(description);
+		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
 		card.contents.push("fill");
 
 		if (atHigherLevels) {
