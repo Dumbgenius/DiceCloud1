@@ -389,7 +389,7 @@ exportSpellRpgCard = function(spellId, charId) {
 		card.tags.push(ordinal(spell.level) + " level ");
 	}
 
-	card.contents.push("subtitle | " + schoolAndLevel);
+	card.contents.push("subtitle | " + schoolAndLevel + (spell.ritual && " (ritual") );
 
 	card.contents.push("rule");
 
