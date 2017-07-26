@@ -314,6 +314,9 @@ exportItemRpgCard = function(itemId, charId) {
 	if (attacksCursor.count()) {
 		card.tags.push("weapon"); //if it has attacks it's probably a weapon
 	}
+	if (item.reqiresAttunement) {
+		card.tags.push("requires attunement");
+	}
 
 	card.title = item.name;
 	card.icon = "swap-bag"; //TODO: change to mixed-swords if it has an attack / drink-me if it is "Potion..." / shiny-purse if it requires attunement / etc.
@@ -364,6 +367,7 @@ exportSpellRpgCard = function(spellId, charId) {
 	var charName = character.name;
 
 	attacksCursor = Attacks.find({"parent.id": spellId});
+	var spellList = SpellLists.findOne(spell.parent.id);
 
 	var card = {};
 	card.contents = [];
@@ -383,6 +387,9 @@ exportSpellRpgCard = function(spellId, charId) {
 	if (spell.ritual) {
 		schoolAndLevel += " (ritual)";
 		card.tags.push("ritual")
+	}
+	if (spellList) {
+		card.tags.push(spellList.name);
 	}
 
 	card.contents.push("subtitle | " + schoolAndLevel);
