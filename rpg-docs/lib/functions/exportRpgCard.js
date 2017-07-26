@@ -1,4 +1,4 @@
-//CONSTANTS
+//CONSTANTS ------------------------------------------------------------------------------------------------------------------------------------------------------
 var stats = {
 	"strength":{"name":"Strength"},
 	"dexterity":{"name":"Dexterity"},
@@ -146,7 +146,7 @@ var proficiencyValues = {
 	2: "Double Prof. Bonus",
 }
 
-//HELPERS
+//HELPERS ------------------------------------------------------------------------------------------------------------------------------------------------------
 var ordinal = function(number) {
 	if (typeof number !== "number") return number;
 
@@ -242,7 +242,7 @@ var statValue = function(effect){
 	return effect.calculation || effect.value;
 },
 
-//ACTUAL EXPORTING FUNCTIONS
+//ACTUAL EXPORTING FUNCTIONS ------------------------------------------------------------------------------------------------------------------------------------------------------
 exportFeatureRpgCard = function(featureId, charId) {
 	var feature = Features.findOne(featureId);
 	var character = Characters.findOne(charId);
@@ -386,10 +386,14 @@ exportSpellRpgCard = function(spellId, charId) {
 		card.tags.push("cantrip");
 	} else {
 		var schoolAndLevel = ordinal(spell.level) + " level " + spell.school;
-		card.tags.push(ordinal(spell.level) + " level ");
+		card.tags.push(ordinal(spell.level) + " level");
+	}
+	if (spell.ritual) {
+		schoolAndLevel += " (ritual)";
+		card.tags.push("ritual")
 	}
 
-	card.contents.push("subtitle | " + schoolAndLevel + (spell.ritual && " (ritual") );
+	card.contents.push("subtitle | " + schoolAndLevel);
 
 	card.contents.push("rule");
 
