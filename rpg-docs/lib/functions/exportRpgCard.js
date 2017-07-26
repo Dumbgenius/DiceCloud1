@@ -167,7 +167,9 @@ var ordinal = function(number) {
 }
 
 var prepareForCard = function(string) {
-	return string.replace(/\n/g, "");
+	var out = string.replace(/\n/g, "");
+	out = out.replace("|", "&#124;"); //replace "|" (pipe) with HTML entity, as rpg-cards will break otherwise if a | character is in its contents
+	return out;
 }
 
 var materialNeedsGp = function(string) {
