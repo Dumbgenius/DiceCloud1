@@ -382,8 +382,7 @@ exportSpellRpgCard = function(spellId, charId) {
 	card.tags = ["spell", spell.school, charName];
 
 	card.title = spell.name;
-	card.icon = "book-cover"; //TODO: change depending on spell school/level?
-	//TODO: support icons if they get added later
+	card.icon = "book-cover"; //TODO: support icons if they get added later
 
 	if (spell.level == 0) {
 		var schoolAndLevel = spell.school + " cantrip";
