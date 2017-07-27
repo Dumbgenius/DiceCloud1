@@ -428,7 +428,7 @@ exportSpellRpgCard = function(spellId, charId) {
 			description = description.replace(/[*_]{0-3}$/, "");
 
 			atHigherLevels = spell.description.substring(breakpoint);
-			atHigherLevels = atHigherLevels.replace(/at higher levels[\W]?[*_]{0-3}/i, ""); //remove "at higher levels" at the start, along with punctuation and **Markdown**.
+			atHigherLevels = atHigherLevels.replace(/^at higher levels[\W]?[*_]{0,3}/i, ""); //remove "at higher levels" at the start, along with punctuation and **Markdown** for bold.
 			atHigherLevels = atHigherLevels.replace(/^\W*?\s+/, ""); //remove punctuation and whitespace after "at higher levels"
 		} else {
 			description = spell.description;
