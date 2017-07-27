@@ -313,17 +313,23 @@ exportItemRpgCard = function(itemId, charId) {
 	var card = {};
 	card.contents = [];
 	card.tags = ["item", charName];
+	card.title = item.name;
+	card.icon = "swap-bag"; //TODO: support icons if they get added later
 
 	if (attacksCursor.count()) {
 		card.tags.push("weapon"); //if it has attacks it's probably a weapon
+		card.icon = "crossed-swords"
 	}
 	if (item.reqiresAttunement) {
 		card.tags.push("requires attunement");
+		card.icon = "shiny-purse"
 	}
-
-	card.title = item.name;
-	card.icon = "swap-bag"; //TODO: change to mixed-swords if it has an attack / drink-me if it is "Potion..." / shiny-purse if it requires attunement / etc.
-	//TODO: support icons if they get added later
+	if (attacksCursor.count() && item.reqiresAttunement) { //if it's a magic weapon
+		card.icon = "shining-sword"
+	}
+	if ( (/^potion\b/i).match(item.name) ) { //if its name starts with "Potion" it's probably a potion
+		card.icon = "drink-me"
+	}
 
 	var weightAndValue = ""
 	if (item.weight) { weightAndValue += item.weight + (item.weight==1 ? " lb, " : " lbs, "); }
