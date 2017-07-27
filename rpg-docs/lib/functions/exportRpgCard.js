@@ -166,9 +166,13 @@ var ordinal = function(number) {
 	return string + "th"
 }
 
-var prepareForCard = function(string) {
-	var out = string.replace(/\n/g, "");
-	out = out.replace("|", "&#124;"); //replace "|" (pipe) with HTML entity, as rpg-cards will break otherwise if a | character is in its contents
+var prepareDescriptionForCard = function(string, charId) {
+	var out = string;
+
+	out = evaluateString(charId, out);
+	out = marked(out); //Markdown
+	out = out.replace(/\n/g, ""); //remove newlines; they aren't used anyway
+	out = out.replace("|", "&#124;"); //replace "|" (pipe) with HTML entity, as rpg-cards will break if a | character is in its contents
 	return out;
 }
 
@@ -289,8 +293,7 @@ exportFeatureRpgCard = function(featureId, charId) {
 
 	if (feature.description) {
 		card.contents.push("fill");
-		var markedDownDescription = marked(feature.description);
-		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
+		card.contents.push("text | " + prepareDescriptionForCard(feature.description, charId));
 		card.contents.push("fill");
 	}
 
@@ -351,8 +354,7 @@ exportItemRpgCard = function(itemId, charId) {
 
 	if (item.description) {
 		card.contents.push("fill");
-		var markedDownDescription = marked(item.description);
-		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
+		card.contents.push("text | " + prepareDescriptionForCard(item.description, charId));
 		card.contents.push("fill");
 	}
 
@@ -428,8 +430,7 @@ exportSpellRpgCard = function(spellId, charId) {
 		}
 
 		card.contents.push("fill");
-		var markedDownDescription = marked(description);
-		card.contents.push( "text | " + prepareForCard(markedDownDescription) ); //for now just output the raw Markdown.
+		card.contents.push("text | " + prepareDescriptionForCard(description, charId));
 		card.contents.push("fill");
 
 		if (atHigherLevels) {
